@@ -1,4 +1,9 @@
 package com.example.snapchatcopy;
 
-class ActivitySingUp {
+
+
+public class ActivitySingUp  {
+
+
 }
+

@@ -1,4 +1,11 @@
 package com.example.snapchatcopy;
 
-class ActivitySingIn {
+
+import android.support.v7.app.AppCompatActivity;
+
+
+public class ActivitySingIn extends AppCompatActivity {
+
+
+
 }
