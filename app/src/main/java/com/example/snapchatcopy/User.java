@@ -1,11 +1,8 @@
 package com.example.snapchatcopy;
 
 import android.app.Activity;
-import android.view.View;
 
 import com.example.snapchatcopy.session.Session;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class User {
 
@@ -13,23 +10,12 @@ public class User {
     private String login;
     private Session session;
     private Activity context;
-    private FirebaseFirestore firebaseApp = FirebaseFirestore.getInstance();
 
-    public User(Session session, String login, String password){
+    User(Session session, String login, String password, Activity context){
         this.session = session;
         this.login = login;
         this.password = password;
-    }
-
-    public void SignIn(View view) {
-        CollectionReference reference = firebaseApp.collection("users");
-        reference.whereEqualTo("Name", login).whereEqualTo("Pass", password)
-                .limit(1)
-                .get()
-                .addOnSuccessListener(query -> {
-                    this.session.putString("username", login);
-                });
-
+        this.context = context;
     }
 
     public String getPassword() {

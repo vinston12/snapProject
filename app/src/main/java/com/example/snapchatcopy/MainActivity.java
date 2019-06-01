@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.snapchatcopy.session.Session;
-
 public class MainActivity extends AppCompatActivity {
 
     Button goSignIn, goSignUp;
@@ -18,12 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Session session = new Session(getApplicationContext());
-
-        if (session.get("username") != null) {
-            startActivity(new Intent(getApplicationContext(), ActivitySignIn.class));
-        }
 
         this.goSignIn = findViewById(R.id.goSignInButton);
         this.goSignUp = findViewById(R.id.goSignUpButton);

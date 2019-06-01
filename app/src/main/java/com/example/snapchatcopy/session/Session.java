@@ -39,12 +39,7 @@ public class Session {
         editor.commit();
     }
 
-    public Object get(String key){
-        Map<String, ?> values = prefs.getAll();
-        if (values.containsKey(key)) {
-            return values.get(key);
-        }
-
-        return null;
+    public String getString(String key){
+        return prefs.getString(key, "");
     }
 }
