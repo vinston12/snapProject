@@ -32,7 +32,7 @@ public class ActivitySingUp extends AppCompatActivity {
 
 
         bLogin = (CardView)findViewById(R.id.loginButtonIn);
-
+ 
         emailLabel = (EditText)findViewById(R.id.emailLabel);
         nameLabel  = (EditText)findViewById(R.id.nameLabel);
         passLabel = (EditText)findViewById(R.id.passLabel);

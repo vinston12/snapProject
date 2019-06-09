@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">snapchatCopy</string>
     <string name="niePamietamHasla"><a href="https://youtu.be/vtiBnFb7si8?t=6">Nie pamiętasz hasła?</a></string>
+    <string name="send">Wysłano</string>
+    <string name="delivered">Dostarczono</string>
+    <string name="opened">Otworzono</string>
 </resources>
