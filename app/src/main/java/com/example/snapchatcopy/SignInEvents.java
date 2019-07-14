@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.snapchatcopy.AfterLoginActivity.CameraActivity;
+import com.example.snapchatcopy.AfterLoginActivity.blankActivity;
 import com.example.snapchatcopy.session.Session;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,6 +68,6 @@ class SignInEvents extends AppCompatActivity {
         context.startActivity(new Intent(context.getApplicationContext(), MainActivity.class));
     }
     void openCamera(View v){
-        context.startActivity(new Intent(context.getApplicationContext(), CameraActivity.class));
+        context.startActivity(new Intent(context.getApplicationContext(), blankActivity.class));
     }
 }

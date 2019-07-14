@@ -1,18 +1,19 @@
 package com.example.snapchatcopy;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.core.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class ActivitySingUp extends AppCompatActivity {
     EditText emailLabel, nameLabel, passLabel;
     CardView bLogin;
     String email, name, pass;
+    Button button;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -35,6 +37,10 @@ public class ActivitySingUp extends AppCompatActivity {
         emailLabel = (EditText)findViewById(R.id.emailLabel);
         nameLabel  = (EditText)findViewById(R.id.nameLabel);
         passLabel = (EditText)findViewById(R.id.passLabel);
+
+        this.button = findViewById(R.id.backButtonInSingUp);
+
+        this.button.setOnClickListener(this::buttonOnClick);
 
 
         bLogin.setOnClickListener(new android.view.View.OnClickListener() {
@@ -68,6 +74,11 @@ public class ActivitySingUp extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void buttonOnClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 

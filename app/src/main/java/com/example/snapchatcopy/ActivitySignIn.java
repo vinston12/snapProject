@@ -1,11 +1,15 @@
 package com.example.snapchatcopy;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 
-import com.example.snapchatcopy.AfterLoginActivity.CameraActivity;
+public class ActivitySignIn extends FragmentActivity {
 
-public class ActivitySignIn extends AppCompatActivity {
+    Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,5 +18,16 @@ public class ActivitySignIn extends AppCompatActivity {
 
         SignInEvents events = new SignInEvents(this);
         events.attach();
+
+        this.button = findViewById(R.id.backButton);
+
+        this.button.setOnClickListener(this::buttonOnClick);
+
+
+
+    }
+    public void buttonOnClick(View v){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }
