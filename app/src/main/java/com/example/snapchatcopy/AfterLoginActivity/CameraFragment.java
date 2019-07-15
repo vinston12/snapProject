@@ -3,6 +3,7 @@ package com.example.snapchatcopy.AfterLoginActivity;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -16,15 +17,22 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.snapchatcopy.CaptureActivity;
 import com.example.snapchatcopy.R;
 import java.io.IOException;
+import java.util.List;
 
 
 public class CameraFragment extends Fragment implements SurfaceHolder.Callback{
      SurfaceView sv;
      SurfaceHolder mHolder;
      Camera mCamera;
+     Button bCameraCapture;
+
+     Camera.PictureCallback jpegCallBack;
 
     final int  CAMERA_REQUEST_CODE = 1;
 
@@ -43,8 +51,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback{
         View view = inflater.inflate(R.layout.camera_fragment, container, false);
         sv = view.findViewById(R.id.surfaceView);
         mHolder = sv.getHolder();
-
-
+        bCameraCapture = view.findViewById(R.id.capture);
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
@@ -53,9 +60,30 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback{
             mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         }
 
+        bCameraCapture.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+            captureImage();
+            }
+        });
+
+        jpegCallBack = new Camera.PictureCallback(){
+            @Override
+            public void onPictureTaken(byte[] bytes, Camera camera) {
+                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                intent.putExtra("capture", bytes);
+                startActivity(intent);
+                return;
+            }
+        };
+
         return view;
     }
 
+    private void captureImage() {
+        mCamera.takePicture(null, null, jpegCallBack);
+    }
 
 
     @Override
@@ -68,6 +96,16 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback{
             mCamera.setDisplayOrientation(90);
             parameters.setPreviewFrameRate(30);
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+
+            Camera.Size bestSize = null;
+            List<Camera.Size> sizeList = mCamera.getParameters().getSupportedPreviewSizes();
+            bestSize = sizeList.get(0);
+            for (int i = 0; i<sizeList.size();i++){
+                if ((sizeList.get(i).width * sizeList.get(i).height)>(bestSize.width * bestSize.height)){
+                    bestSize = sizeList.get(i);
+                }
+            }
+            parameters.setPreviewSize(bestSize.width, bestSize.height);
 
         try {
             mCamera.setPreviewDisplay(mHolder);
